@@ -1,0 +1,7 @@
+/*GOOGLE MAPS API*/
+html, body, #map-canvas {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border:1em solid green;
+}

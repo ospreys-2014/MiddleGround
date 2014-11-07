@@ -1,4 +1,4 @@
 get '/' do
 
-erb :index
+erb :map
 end
