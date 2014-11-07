@@ -1,12 +1,5 @@
 get '/' do
-  if session[:user_id]
-    @things = Thing.where(user_id: session[:user_id])
-    @user = User.find(session[:user_id])
-
-    erb :welcome, locals:{things: @things, user: @user}
-  else
     erb :welcome
-  end
 end
 
 get '/signup' do
