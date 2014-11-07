@@ -1,6 +1,4 @@
 require 'rake'
-require 'rspec/core/rake_task'
-
 
 require ::File.expand_path('../config/environment', __FILE__)
 
@@ -120,13 +118,6 @@ namespace :db do
     puts "Current version: #{ActiveRecord::Migrator.current_version}"
   end
 
-  desc "rollback your migration--use STEPS=number to step back multiple times"
-  task :rollback do
-    steps = (ENV['STEPS'] || 1).to_i
-    ActiveRecord::Migrator.rollback('db/migrate', steps)
-    Rake::Task['db:version'].invoke if Rake::Task['db:version']
-  end
-
   namespace :test do
     desc "Migrate test database"
     task :prepare do
@@ -139,8 +130,5 @@ desc 'Start IRB with application environment loaded'
 task "console" do
   exec "irb -r./config/environment"
 end
-
-desc "Run the specs"
-RSpec::Core::RakeTask.new(:spec)
 
 task :default  => :spec

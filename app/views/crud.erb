@@ -1,0 +1,19 @@
+<div id="create_article">
+<h3>Create an Article</h3>
+<form action="/categories/<%= @category.id %>" method="POST">
+  Title: <input type="text" name="article[title]"><br>
+  Photo_url: <input type="text" name="article[photo_url]"><br>
+  Email: <input type="text" name="article[email]"><br>
+  Price: $<input type="text" name="article[price]"><br>
+  <textarea rows="10" cols="30" name="article[description]">Add your description...</textarea>
+  <input type="submit">
+</form>
+</div>
+
+<a href="/categories/<%= @category.id %>/article/<%= @article.id %>/edit">Edit</a><br>
+
+<form action="/categories/<%= @category.id %>/article/<%= @article.id %>" method="POST">
+  <input type="hidden" name="_method" value="DELETE">
+  <input type="submit" value="Delete">
+</form>
+
