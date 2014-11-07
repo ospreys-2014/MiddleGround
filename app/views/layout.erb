@@ -1,36 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!--
-    normalize.css removes cross-browser differences in defaults, e.g.,
-    differences in how form elements appear between Firefox and IE
-    See: http://necolas.github.com/normalize.css/
-  -->
+  <title>MiddleGround</title>
+
   <link rel="stylesheet" href="/css/normalize.css">
-  <!--
-    application.css is where you put your styles
-  -->
   <link rel="stylesheet" href="/css/application.css">
 
-  <!-- Ajax/Jquery lib -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
   <!-- js source -->
 
   <!-- GOOGLE MAPS API -->
   <script src="/js/application.js"></script>
   <script src="/js/googlemaps.js"></script>
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD6HJkA06KUk-GtfEthUNOnEP_KM0igXMs"></script>
-
+  <!-- GEOCOMPLETE API -->
+  <script src="http://maps.googleapis.com/maps/api/js?libraries=places"></script>
+  <script src="/js/geocomplete.js"></script>
+  <script src="/js/jquery.geocomplete.js"></script>
 
   <title></title>
 </head>
 
 <body>
-
-  <header>
-
-  </header>
+  <header></header>
   <%= yield %>
-
-</body>
+  </body>
 </html>
