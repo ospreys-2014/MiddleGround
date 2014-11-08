@@ -16,6 +16,7 @@ $(function(){
   });
 
   $("#geocomplete").bind("geocode:dragged", function(event, latLng){
+
     $("input[name=lat]").val(latLng.lat());
     $("input[name=lng]").val(latLng.lng());
     $("#reset").show();
@@ -32,6 +33,36 @@ $(function(){
     $("#geocomplete").trigger("geocode");
   }).click();
 });
+
+
+$(function(){
+  $("#geocomplete2").geocomplete({
+    map: ".map_canvas",
+    details: "form2 ",
+    markerOptions: {
+      draggable: true
+    }
+  });
+
+  $("#geocomplete2").bind("geocode:dragged", function(event, latLng){
+
+    $("input[name=lat]").val(latLng.lat());
+    $("input[name=lng]").val(latLng.lng());
+    $("#reset").show();
+  });
+
+
+  $("#reset").click(function(){
+    $("#geocomplete2").geocomplete("resetMarker");
+    $("#reset").hide();
+    return false;
+  });
+
+  $("#find2").click(function(){
+    $("#geocomplete2").trigger("geocode");
+  }).click();
+});
+
 
 
 });
