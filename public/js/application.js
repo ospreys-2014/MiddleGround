@@ -1,10 +1,4 @@
 $(document).ready(function() {
-  // This is called after the document has loaded in its entirety
-  // This guarantees that any elements we bind to will exist on the page
-  // when we try to bind to them
-
-  // See: http://docs.jquery.com/Tutorials:Introducing_$(document).ready()
-
 
 $(function(){
   $("#geocomplete").geocomplete({
@@ -16,7 +10,6 @@ $(function(){
   });
 
   $("#geocomplete").bind("geocode:dragged", function(event, latLng){
-
     $("input[name=lat]").val(latLng.lat());
     $("input[name=lng]").val(latLng.lng());
     $("#reset").show();
@@ -32,6 +25,7 @@ $(function(){
   $("#find").click(function(){
     $("#geocomplete").trigger("geocode");
   }).click();
+
 });
 
 
@@ -45,9 +39,8 @@ $(function(){
   });
 
   $("#geocomplete2").bind("geocode:dragged", function(event, latLng){
-
-    $("input[name=lat]").val(latLng.lat());
-    $("input[name=lng]").val(latLng.lng());
+    $("input[name=lat2]").val(latLng.lat());
+    $("input[name=lng2]").val(latLng.lng());
     $("#reset").show();
   });
 
@@ -61,8 +54,12 @@ $(function(){
   $("#find2").click(function(){
     $("#geocomplete2").trigger("geocode");
   }).click();
+
+});
+
+
+
 });
 
 
 
-});
