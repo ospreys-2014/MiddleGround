@@ -1,21 +1,25 @@
 <div id="map-canvas"></div>
 
+<div id="map-canvas2"></div>
+
   <h3>First Address</h3>
     <input id="geocomplete" type="text" class="form-control input-lg" placeholder="Type in an address" value="48 Wall Street" />
     <input id="find" style="display: inline;" type="button" width="80%"class="btn btn-primary btn-lg" value ="Search"/>
   <h3>Second Address</h3>
-    <input id="geocomplete2" type="text" class="form-control input-lg" placeholder="Type in an address" value="48 Wall Street" />
+    <input id="geocomplete2" type="text" class="form-control input-lg" placeholder="Type in an address" value="Los Angeles" />
     <input id="find2" style="display: inline;" type="button" width="80%"class="btn btn-primary btn-lg" value ="Search"/>
     <br>
   
+<button id="route">Route</button>
+
   <div id="coordset1">
     <fieldset>
       <h3>First Location Coordinates</h3>
       <label>Latitude</label>
-      <input name="lat" type="text" value="">
+      <input name="lat" id="lat1" type="text" value="">
       <br>
       <label>Longitude</label>
-      <input name="lng" type="text" value="">
+      <input name="lng" id="lng1" type="text" value="">
       <br>
       <label>Formatted Address</label>
       <input name="formatted_address" type="text" value="">

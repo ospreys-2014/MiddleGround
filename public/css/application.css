@@ -17,7 +17,7 @@ html, body {
   height: 100%;
   width: 100%;
 }
-.map_canvas, #map-canvas {
+#map-canvas2, #map-canvas {
   width: 600px;
   height: 400px;
   margin: 10px 20px 10px 0;
