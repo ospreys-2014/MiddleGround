@@ -12,6 +12,7 @@ require 'uri'
 require 'pathname'
 
 require 'pg'
+require 'sqlite3'
 require 'active_record'
 require 'logger'
 

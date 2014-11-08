@@ -24,7 +24,7 @@ ul span { color: #999; }
 }
 
 /*GOOGLE MAPS API*/
-#map-canvas {
+html, body, #map-canvas {
   height: 100%;
   margin: 0;
   padding: 0;
