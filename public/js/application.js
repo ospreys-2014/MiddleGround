@@ -3,7 +3,7 @@ $(document).ready(function() {
 $(function(){
   $("#geocomplete").geocomplete({
     map: "#map-canvas",
-    details: "form ",
+    details: "#coordset1",
     markerOptions: {
       draggable: true
     }
@@ -32,7 +32,7 @@ $(function(){
 $(function(){
   $("#geocomplete2").geocomplete({
     map: "#map-canvas",
-    details: "form2 ",
+    details: "#coordset2",
     markerOptions: {
       draggable: true
     }

@@ -55,6 +55,9 @@ function CreateMap(center) {
   }
 
 
+var inputLat = document.getElementById('filename').value
+
+
   // JS READY DOCUMENT
 $(document).ready(function() {
   var directionsDisplay = new google.maps.DirectionsRenderer();
