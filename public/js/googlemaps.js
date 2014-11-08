@@ -49,7 +49,6 @@ function CreateMap(center) {
         directionsDisplay.setDirections(response);
       }
       else{
-        alert("Wron Coordinates entered");
         console.log("DESTINATION");
     }
     });
@@ -58,12 +57,12 @@ function CreateMap(center) {
 
   // JS READY DOCUMENT
 $(document).ready(function() {
-    var directionsDisplay = new google.maps.DirectionsRenderer();
+  var directionsDisplay = new google.maps.DirectionsRenderer();
   var coordinates = new google.maps.LatLng(40.70668, -74);
   var start = new google.maps.LatLng(40.70668, -74);
   var end = new google.maps.LatLng(40.70668, -64);
   var map = new CreateMap(coordinates);
-   map = new google.maps.Map(document.getElementById('map-canvas'), map.mapOptions);
+  map = new google.maps.Map(document.getElementById('map-canvas'), map.mapOptions);
   directionsDisplay.setMap(map);
   var directionsService = new google.maps.DirectionsService();
   // var start = coordinates;
