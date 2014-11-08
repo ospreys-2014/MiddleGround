@@ -1,0 +1,39 @@
+<div class="container">
+  <div>
+    <h1>Welcome to Sinatra!</h1>
+    <p><%= @category.title %></p>
+  </div>
+  <div class="article_list">
+    <a href="#" id="createArticle">Create article</a>
+    <ol>
+      <% @articles.each do |article| %>
+      <li><a href="articles/<%= article.id %>"><%= article.title %></a></li>
+      <% end %>
+    </ol>
+  </div>
+  <div class="article_form">
+    <form action="/articles" method="POST">
+      Title:
+      <br>
+      <input name="article[title]" type="text" value="">
+      <br>
+      Price:
+      <br>
+      <input name="article[price]" type="text" value="">
+      <br>
+      Email:
+      <br>
+      <input name="article[email]" type="text" value="">
+      <br>
+      Description:
+      <br>
+      <textarea name="article[description]"></textarea>
+      <br>
+      <br>
+      <input type="submit">
+      <input name="article[category_id]" type="hidden" value="<%= @category.id %>">
+
+    </form>
+  </div>
+</div>
+

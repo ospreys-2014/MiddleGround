@@ -1,0 +1,32 @@
+<div class = "container">
+  <div class="edit_form">
+    <form action="/articles/<%= @article.id %>" method="POST">
+      <input type="hidden" name="_method" value="PUT">
+      Title:
+      <br>
+      <input name="article[title]" type="text" value="<%= @article.title%>">
+      <br>
+      Price:
+      <br>
+      <input name="article[price]" type="text" value="<%= @article.price %>">
+      <br>
+      Email:
+      <br>
+      <input name="article[email]" type="text" value="<%= @article.email %>">
+      <br>
+      Description:
+      <br>
+      <textarea name="article[description]"><%= @article.description %></textarea>
+      <br>
+      <br>
+      <input type="submit">
+
+      <input name="article[category_id]" type="hidden" value="<%= @article.category_id %>">
+    </form>
+    <br>
+    <form action="/articles/<%= @article.id %>" method="POST">
+      <input type="hidden" name="_method" value="DELETE">
+      <input type="submit" value="Delete">
+    </form>
+  </div>
+</div>
