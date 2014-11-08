@@ -67,7 +67,8 @@ Response = {
 
     stepObject = this.findPhysicalMidStep(responseFromGoogle, midPointTime);
 
-    this.findPhysicalMidPoint(stepObject, midPointTime);
+    // THIS RETURNS THE PHYSICAL MID POINT BY DRIVING TIME
+    console.log(this.findPhysicalMidPoint(stepObject, midPointTime));
 
   },
 
@@ -103,7 +104,7 @@ Response = {
     for(i = 0; i < steps.length; i++){
       if(step_sum < midPointTime && next_step_sum > midPointTime){
         // console.log("The step that contains midpoint:");
-        // console.log(steps[i]);
+        console.log(steps[i]);
         return { 
           step: steps[i],
           step_sum: step_sum
@@ -117,14 +118,19 @@ Response = {
   },
 
   findPhysicalMidPoint: function(stepObject, midPointTime) {
-    time1 = midPointTime - stepObject.step_sum;
-    time2 = stepObject.step.duration.value - midPointTime;
-    step_mid = stepObject.step.duration.value / 2
+    midPointTime_in_step = midPointTime - stepObject.step_sum;
+    total_step_time = stepObject.step.duration.value;
 
-    if(time1 < time2){
-      
-    }
+    coord_of_midpoint = Math.floor((midPointTime_in_step * stepObject.step.path.length) / total_step_time);
 
+    // console.log("midPointTime_in_step: " + midPointTime_in_step);
+    // console.log("total_step_time: " + total_step_time);
+    // console.log("step length: " + stepObject.step.path.length);
+
+    // console.log("step length: " + coord_of_midpoint);
+
+    return stepObject.step.path[coord_of_midpoint];
+    
   }
 
 }
