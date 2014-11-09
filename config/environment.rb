@@ -18,7 +18,7 @@ require 'logger'
 require 'sinatra'
 require "sinatra/reloader" if development?
 require 'faker'
-
+require 'yelp'
 require 'erb'
 require 'bcrypt'
 

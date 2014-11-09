@@ -1,17 +1,20 @@
 <form>
+<div id="searchblock">
 <h3>First Address<input name="formatted_address_1" type="text" class="form-control input-lg" style ="margin-left: 35px;" placeholder="Type in an address" value=""></h3>
 <h3>Second Address   <input name="formatted_address_2" type="text" class="form-control input-lg" placeholder="Type in an address" value=""></h3>
 <input name="coords1" type="hidden" value="">
 <input name="coords2" type="hidden" value="">
+</div>
 <br>
 
-<select id="myselect" style="margin-left: 10em;"class= "btn btn-primary btn-lg">
+<button id="routebtn" type="submit" class="btn btn-primary">Find MiddleGround</button>
+
+<select id="myselect" class= "btn btn-primary btn-lg">
   <option value="DRIVING">Driving</option>
   <option value="WALKING">Walking</option>
   <option value="BICYCLING">Bicycling</option>
   <option value="TRANSIT">Transit</option>
 </select>
 
-<button style="margin-left: 13em;"type="submit" class="btn btn-primary">Calculate Route</button>
 </form>
 <br>

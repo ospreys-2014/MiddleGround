@@ -130,7 +130,7 @@ Response = {
         position: stepObject.step.path[coord_of_midpoint],
         map: map,
     });
-
+    // console.log( stepObject.step.path[coord_of_midpoint])
     return stepObject.step.path[coord_of_midpoint];
   }
 
