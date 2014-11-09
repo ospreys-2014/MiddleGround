@@ -1,8 +1,6 @@
-
 get '/' do
     erb :welcome
 end
-
 
 get '/signup' do
   erb :signup
