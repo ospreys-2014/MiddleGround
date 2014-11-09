@@ -157,11 +157,29 @@ Yelp = {
 
       console.log(json_response);
 
+      YelpParser.main(json_response);
+
       // View.renderYelpResultOrSomething(my_parsed_data_I_care_about);
       
     });
   }
+
+  
 }
+
+YelpParser = {
+  
+  main: function(json_response){
+    console.log(this.parseBusinesses(json_response));
+
+  },
+
+  parseBusinesses: function(json_response) {
+    return json_response.businesses
+  }
+}
+
+
 
 View = {
   populateField: function(inputField, populateField) {

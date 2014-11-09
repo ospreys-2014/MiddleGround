@@ -5,7 +5,7 @@ def yelp_api_search(coordinates)
     token: 'ybOVC3u0utMV4HnIGaMHAoPHl40RY6lT',
     token_secret: 'Lkgly8N3HfFz5rilbufkRLQ2k8I'
     })
-  params = { term: 'food', limit: 5, radius_filter: 804 }
-  # coordinates = { latitude: 37.7577, longitude: -122.4376 }
+  params = { term: 'food', limit: 5, radius_filter: 1200 }
+
   client.search_by_coordinates(coordinates, params)
 end

@@ -1,8 +1,9 @@
 post '/results' do
 
-  response = yelp_api_search({ latitude: 37.7577, longitude: -122.4376 })
+  response = yelp_api_search(params)
 
   if request.xhr?
+    p params
     response.to_json
   else
     p "test failed"
