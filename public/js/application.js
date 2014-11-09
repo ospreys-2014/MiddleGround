@@ -20,10 +20,10 @@ $(document).ready(function() {
 
 
 function initializeMapping() {
-  var newjersey = new google.maps.LatLng(40.1430241,-74.7311156);
+  var manhattan = new google.maps.LatLng(40.7711329, -73.9741874);
   var mapOptions = {
-    zoom: 8,
-    center: newjersey
+    zoom: 13,
+    center: manhattan
   };
   directionsDisplay = new google.maps.DirectionsRenderer();
   directionsService = new google.maps.DirectionsService();
@@ -124,21 +124,17 @@ Response = {
   findPhysicalMidPoint: function(stepObject, midPointTime) {
     midPointTime_in_step = midPointTime - stepObject.step_sum;
     total_step_time = stepObject.step.duration.value;
-
     coord_of_midpoint = Math.floor((midPointTime_in_step * stepObject.step.path.length) / total_step_time);
 
-    // console.log("midPointTime_in_step: " + midPointTime_in_step);
-    // console.log("total_step_time: " + total_step_time);
-    // console.log("step length: " + stepObject.step.path.length);
-
-    // console.log("step length: " + coord_of_midpoint);
+    var marker = new google.maps.Marker({
+        position: stepObject.step.path[coord_of_midpoint],
+        map: map,
+    });
 
     return stepObject.step.path[coord_of_midpoint];
-    
   }
 
 }
-
 
 
 View = {
