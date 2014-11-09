@@ -13,6 +13,7 @@ $(document).ready(function() {
 
     Trip.request["origin"] = $form.find('input[name=coords1]').val();
     Trip.request["destination"] = $form.find('input[name=coords2]').val();
+    Trip.request["travelMode"] = Trip.travelOptions.walking;
     Trip.calcRoute();
 
   })
@@ -36,6 +37,13 @@ function initializeMapping() {
 
 
 Trip = {
+  travelOptions: {
+    driving: google.maps.TravelMode.DRIVING,
+    walking: google.maps.TravelMode.WALKING,
+    bicycling: google.maps.TravelMode.BICYCLING,
+    transit: google.maps.TravelMode.TRANSIT
+  },
+
   request: {
     travelMode: google.maps.TravelMode.DRIVING
   },
