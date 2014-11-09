@@ -171,12 +171,27 @@ YelpParser = {
   
   main: function(json_response){
     console.log(this.parseBusinesses(json_response));
-
+    yelp_results = this.parseBusinesses(json_response)
+    this.parsedBusiness(yelp_results, 0)
   },
 
   parseBusinesses: function(json_response) {
     return json_response.businesses
+  },
+
+  parsedBusiness: function(yelp_results, index) {
+    console.log(yelp_results[index].name)
+    console.log(yelp_results[index].rating)
+    console.log(yelp_results[index].rating_img_url)
+    console.log(yelp_results[index].url)
+    console.log(yelp_results[index].location.address[0])
+    console.log(yelp_results[index].location.city)
+    console.log(yelp_results[index].location.state_code)
+    console.log(yelp_results[index].phone)
+    console.log(yelp_results[index].location.coordinate)
+
   }
+
 }
 
 
