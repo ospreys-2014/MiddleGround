@@ -71,8 +71,14 @@ Response = {
 
     stepObject = this.findPhysicalMidStep(responseFromGoogle, midPointTime);
 
+    googleMidPointObject = this.findPhysicalMidPoint(stepObject, midPointTime);
+
     // THIS RETURNS THE PHYSICAL MID POINT BY DRIVING TIME
-    console.log(this.findPhysicalMidPoint(stepObject, midPointTime));
+    console.log(googleMidPointObject);
+
+    View.renderMidPointMarker(googleMidPointObject);
+
+    Yelp.main(googleMidPointObject);
 
   },
 
@@ -126,16 +132,36 @@ Response = {
     total_step_time = stepObject.step.duration.value;
     coord_of_midpoint = Math.floor((midPointTime_in_step * stepObject.step.path.length) / total_step_time);
 
-    var marker = new google.maps.Marker({
-        position: stepObject.step.path[coord_of_midpoint],
-        map: map,
-    });
-    // console.log( stepObject.step.path[coord_of_midpoint])
     return stepObject.step.path[coord_of_midpoint];
   }
 
 }
 
+Yelp = {
+  main: function(coordinatesObject) {
+    coordinates = {
+      latitude: coordinatesObject.k,
+      longitude:coordinatesObject.B
+    }
+    
+    this.getYelpResults(coordinates);
+  },
+  
+  getYelpResults: function(coordinates) {
+    $.ajax({
+      url: '/results',
+      type: 'POST',
+      dataType: 'JSON',
+      data: coordinates
+    }).done(function(json_response) {
+
+      console.log(json_response);
+
+      // View.renderYelpResultOrSomething(my_parsed_data_I_care_about);
+      
+    });
+  }
+}
 
 View = {
   populateField: function(inputField, populateField) {
@@ -149,5 +175,12 @@ View = {
 
   displayError: function() {
     $('#error').append('<p><strong>This is not a valid route!</strong></p>');
+  },
+
+  renderMidPointMarker: function(markerCoordinates) {
+    var marker = new google.maps.Marker({
+        position: markerCoordinates,
+        map: map,
+    });
   }
 }
