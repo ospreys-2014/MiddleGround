@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
-ruby '2.1.3'
 
 # PostgreSQL driver
 gem 'pg'
+gem 'sqlite3'
 
 # Sinatra driver
 gem 'sinatra'
