@@ -1,89 +1,156 @@
+
+
 $(document).ready(function() {
 
-$(function(){
-  $("#geocomplete").geocomplete({
-    map: "#map-canvas",
-    details: "#coordset1",
-    markerOptions: {
-      draggable: true
+  $("form").keyup(function(event){
+    if(event.keyCode == 13){
+        $(".btn btn-primary btn-lg").click();
     }
-  });
+});
 
-  $("#geocomplete").bind("geocode:dragged", function(event, latLng){
-    $("input[name=lat]").val(latLng.lat());
-    $("input[name=lng]").val(latLng.lng());
-    $("#reset").show();
-  });
+  initializeMapping();
 
+  View.populateField("formatted_address_1", "coords1");
+  View.populateField("formatted_address_2", "coords2");
 
-  $("#reset").click(function(){
-    $("#geocomplete").geocomplete("resetMarker");
-    $("#reset").hide();
-    return false;
-  });
+  $('form').on('submit', function(event) {
+    event.preventDefault();
+    $form = $(event.target);
 
-  $("#find").click(function(){
-    $("#geocomplete").trigger("geocode");
-  }).click();
- 
+    Trip.request["origin"] = $form.find('input[name=coords1]').val();
+    Trip.request["destination"] = $form.find('input[name=coords2]').val();
+    Trip.calcRoute();
+
+  })
 
 });
 
+function initializeMapping() {
+  var newjersey = new google.maps.LatLng(40.1430241,-74.7311156);
+  var mapOptions = {
+    zoom: 8,
+    center: newjersey
+  };
+  directionsDisplay = new google.maps.DirectionsRenderer();
+  directionsService = new google.maps.DirectionsService();
+  map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+  directionsDisplay.setMap(map);
+}
 
-$(function(){
-  $("#geocomplete2").geocomplete({
-    map: "#map-canvas",
-    details: "#coordset2",
-    markerOptions: {
-      draggable: true
+
+
+Trip = {
+  request: {
+    travelMode: google.maps.TravelMode.WALKING
+  },
+
+  calcRoute: function(responseExtraction) {
+    directionsService.route(this.request, function(response, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+        directionsDisplay.setDirections(response);
+        Response.main(response);
+      } else {
+        View.displayError();
+      }
+    });
+  }
+}
+
+
+Response = {
+
+  main: function(responseFromGoogle) {
+    console.log(responseFromGoogle);
+    total_time = this.totalTripTime(responseFromGoogle);
+    midPointTime = this.midPointTripTime(total_time);
+
+    this.showAllSteps(responseFromGoogle);
+
+    console.log("Total time: " + total_time);
+    console.log("Midpoint time: " + midPointTime);
+
+    stepObject = this.findPhysicalMidStep(responseFromGoogle, midPointTime);
+
+    // THIS RETURNS THE PHYSICAL MID POINT BY DRIVING TIME
+    console.log(this.findPhysicalMidPoint(stepObject, midPointTime));
+
+  },
+
+  totalTripTime: function(response) {
+    return response.routes[0].legs[0].duration.value;
+  },
+
+  midPointTripTime: function(total_time) {
+    return Math.floor(total_time / 2);
+  },
+
+  showAllSteps: function(routeObject) {
+    steps = routeObject.routes[0].legs[0].steps;
+    
+    counter = 0;
+    step_sum = 0;
+    for(i = 0; i < steps.length; i++){
+      console.log("Step " + counter + " duration:" + steps[i].duration.value);
+
+      step_sum += steps[i].duration.value;
+      console.log("Step " + counter + " total duration:" + step_sum);
+
+      counter++;
     }
-  });
+  },
 
-  $("#geocomplete2").bind("geocode:dragged", function(event, latLng){
-    $("input[name=lat2]").val(latLng.lat());
-    $("input[name=lng2]").val(latLng.lng());
-    $("#reset").show();
-  });
+  findPhysicalMidStep: function(routeObject, midPointTime) {
+    steps = routeObject.routes[0].legs[0].steps;
+    console.log(steps);
 
+    step_sum = 0;
+    next_step_sum = 0;
+    for(i = 0; i < steps.length; i++){
+      if(step_sum < midPointTime && next_step_sum > midPointTime){
+        // console.log("The step that contains midpoint:");
+        console.log(steps[i]);
+        return { 
+          step: steps[i],
+          step_sum: step_sum
+        }
+      } else {
+        step_sum += steps[i].duration.value;
+        next_step_sum = step_sum + steps[i + 1].duration.value;
+        // console.log(step_sum);
+      }
+    }
+  },
 
-  $("#reset").click(function(){
-    $("#geocomplete2").geocomplete("resetMarker");
-    $("#reset").hide();
-    return false;
-  });
+  findPhysicalMidPoint: function(stepObject, midPointTime) {
+    midPointTime_in_step = midPointTime - stepObject.step_sum;
+    total_step_time = stepObject.step.duration.value;
 
-  $("#find2").click(function(){
-    $("#geocomplete2").trigger("geocode");
-  }).click();
+    coord_of_midpoint = Math.floor((midPointTime_in_step * stepObject.step.path.length) / total_step_time);
 
-});
+    // console.log("midPointTime_in_step: " + midPointTime_in_step);
+    // console.log("total_step_time: " + total_step_time);
+    // console.log("step length: " + stepObject.step.path.length);
 
+    // console.log("step length: " + coord_of_midpoint);
 
+    return stepObject.step.path[coord_of_midpoint];
+    
+  }
 
-// var inputLat1 = document.getElementById('lat1').value
-// var inputLng1 = document.getElementById('lng1').value
-// var inputLat2 = document.getElementById('lat2').value
-// var inputLng2 = document.getElementById('lng2').value
-//   var directionsDisplay = new google.maps.DirectionsRenderer();
-//   var coordinates = new google.maps.LatLng(40.70668, -74);
-//   var start = new google.maps.LatLng(40.70668, -74);
-//   var end = new google.maps.LatLng(40.70668, -74);
-//   var map = new CreateMap(coordinates);
-//   map = new google.maps.Map(document.getElementById('map-canvas2'), map.mapOptions);
-//   directionsDisplay.setMap(map);
-//   var directionsService = new google.maps.DirectionsService();
-//   calcRoute(start, end, directionsService, directionsDisplay);
-  // var start = coordinates;
-
-  // var end = "gallup, nm";
-  // initialize();
-  // google.maps.event.addDomListener(window, 'load', initialize);
-  
-
-// $( "#route" ).click(function() { calcRoute(start, end, directionsService, directionsDisplay) });
-
-
-});
+}
 
 
 
+View = {
+  populateField: function(inputField, populateField) {
+    $("input[name=" + inputField + "]").geocomplete().bind("geocode:result", function(event, result){
+      coordsObject = result.geometry.location;
+      $("input[name=" + populateField + "]").val(coordsObject.k + ", " + coordsObject.B);
+      console.log(result.geometry.location);
+    });
+  },
+
+  displayError: function() {
+    $('#error').append('<p><strong>This is not a valid route!</strong></p>');
+  }
+}
