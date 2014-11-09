@@ -1,12 +1,4 @@
-
-
 $(document).ready(function() {
-
-  $("form").keyup(function(event){
-    if(event.keyCode == 13){
-        $(".btn btn-primary btn-lg").click();
-    }
-});
 
   initializeMapping();
 
@@ -16,14 +8,16 @@ $(document).ready(function() {
   $('form').on('submit', function(event) {
     event.preventDefault();
     $form = $(event.target);
-
+    $travelMode = $( "#myselect option:selected" ).text();
     Trip.request["origin"] = $form.find('input[name=coords1]').val();
     Trip.request["destination"] = $form.find('input[name=coords2]').val();
+    Trip.request["travelMode"] = Trip.travelOptions[$travelMode];
     Trip.calcRoute();
 
   })
 
 });
+
 
 function initializeMapping() {
   var newjersey = new google.maps.LatLng(40.1430241,-74.7311156);
@@ -38,10 +32,16 @@ function initializeMapping() {
 }
 
 
-
 Trip = {
+  travelOptions: {
+    Driving: google.maps.TravelMode.DRIVING,
+    Walking: google.maps.TravelMode.WALKING,
+    Bicycling: google.maps.TravelMode.BICYCLING,
+    Transit: google.maps.TravelMode.TRANSIT
+  },
+
   request: {
-    travelMode: google.maps.TravelMode.WALKING
+    travelMode: google.maps.TravelMode.DRIVING
   },
 
   calcRoute: function(responseExtraction) {
@@ -149,6 +149,7 @@ View = {
       console.log(result.geometry.location);
     });
   },
+
 
   displayError: function() {
     $('#error').append('<p><strong>This is not a valid route!</strong></p>');
