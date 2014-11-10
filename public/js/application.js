@@ -230,7 +230,7 @@ View = {
   },
 
   displayError: function() {
-    $('#error').append('<p><strong>This is not a valid route!</strong></p>');
+    $('#poi').append('<h3>That is not a valid route! Try again.</h3>');
   },
 
   displayNoBusiness: function() {
