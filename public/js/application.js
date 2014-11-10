@@ -76,7 +76,7 @@ Response = {
     // THIS RETURNS THE PHYSICAL MID POINT BY DRIVING TIME
     console.log(googleMidPointObject);
 
-    View.renderMidPointMarker(googleMidPointObject);
+    View.renderMarker(googleMidPointObject);
 
     Yelp.main(googleMidPointObject);
 
@@ -156,11 +156,8 @@ Yelp = {
     }).done(function(json_response) {
 
       console.log(json_response);
-
       YelpParser.main(json_response);
 
-      // View.renderYelpResultOrSomething(my_parsed_data_I_care_about);
-      
     });
   }
 
@@ -172,28 +169,40 @@ YelpParser = {
   main: function(json_response){
     console.log(this.parseBusinesses(json_response));
     yelp_results = this.parseBusinesses(json_response)
-    this.parsedBusiness(yelp_results, 0)
+    
+
+    for(i=0; i < yelp_results.length; i++){
+      business = this.parsedBusiness(yelp_results, i)
+      console.log(business)
+    var myLatLng = new google.maps.LatLng(business.latitude, business.longitude);
+      View.renderBusiness(business)
+      View.renderMarker(myLatLng)
+    }
+
+
   },
+
+  businesses: {},
 
   parseBusinesses: function(json_response) {
     return json_response.businesses
   },
 
   parsedBusiness: function(yelp_results, index) {
-    console.log(yelp_results[index].name)
-    console.log(yelp_results[index].rating)
-    console.log(yelp_results[index].rating_img_url)
-    console.log(yelp_results[index].url)
-    console.log(yelp_results[index].location.address[0])
-    console.log(yelp_results[index].location.city)
-    console.log(yelp_results[index].location.state_code)
-    console.log(yelp_results[index].phone)
-    console.log(yelp_results[index].location.coordinate)
+    return this.businesses["name" + index] = {
+      name:   yelp_results[index].name, 
+      rating_url: yelp_results[index].rating_img_url,
+      url: yelp_results[index].url,  
+      address: yelp_results[index].location.address[0],
+      city: yelp_results[index].location.city,
+      state: yelp_results[index].location.state_code,
+      phone: yelp_results[index].phone,
+      latitude: yelp_results[index].location.coordinate.latitude,
+      longitude: yelp_results[index].location.coordinate.longitude      
+    } 
 
   }
-
 }
-
 
 
 View = {
@@ -205,15 +214,41 @@ View = {
     });
   },
 
+  renderBusiness: function(business){
+    console.log(business.name)
+    $('#poi').append('<p>' + business.name + '</p>' +
+                      '<img src ="'+business.rating_url+'">' +
+                      '<a href ="' + business.url + '">Link</a>' +
+                      '<p>' + business.address + '</p>' +
+                      '<p>' + business.city + '</p>' +
+                      '<p>' + business.state + '</p>' +
+                      '<p>' + business.phone + '</p>'
+      )
+
+  },
 
   displayError: function() {
     $('#error').append('<p><strong>This is not a valid route!</strong></p>');
   },
 
-  renderMidPointMarker: function(markerCoordinates) {
+  renderMarker: function(myLatLng) {
+
+var contentString = 'Testing';
+      
+ var infowindow = new google.maps.InfoWindow({
+      content: contentString
+  });
     var marker = new google.maps.Marker({
-        position: markerCoordinates,
+        position: myLatLng,
         map: map,
+        draggable:true,
+        animation: google.maps.Animation.DROP,
+        title: "'Uluru (Ayers Rock)'"
     });
+    google.maps.event.addListener(marker, 'click', function() {
+    infowindow.open(map,marker);
+  });
+
+google.maps.event.addDomListener(window, 'load', initializeMapping);
   }
 }
