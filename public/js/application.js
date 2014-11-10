@@ -166,18 +166,22 @@ Yelp = {
 }
 
 YelpParser = {
-  
+
   main: function(json_response){
     console.log(this.parseBusinesses(json_response));
     yelp_results = this.parseBusinesses(json_response)
     
 
-    for(i=0; i < yelp_results.length; i++){
-      business = this.parsedBusiness(yelp_results, i)
-      console.log(business)
-    var myLatLng = new google.maps.LatLng(business.latitude, business.longitude);
-      View.renderBusiness(business)
-      View.renderMarker(myLatLng)
+    if(yelp_results.length === 0){
+      View.displayNoBusiness();
+    } else {
+      for(i=0; i < yelp_results.length; i++){
+        business = this.parsedBusiness(yelp_results, i)
+        console.log(business)
+        var myLatLng = new google.maps.LatLng(business.latitude, business.longitude);
+        View.renderBusiness(business)
+        View.renderMarker(myLatLng)
+      }
     }
 
 
@@ -227,27 +231,34 @@ View = {
   },
 
   displayError: function() {
-    $('#error').append('<p><strong>This is not a valid route!</strong></p>');
+    $('#poi').append('<h3>That is not a valid route! Try again.</h3>');
   },
+
+  displayNoBusiness: function() {
+    $('#poi').append('<h3>No restaurants found.</h3>');
+    $('#poi').append('<p>There is no viable middle ground here.</p>');
+  },
+
+
 
   renderMarker: function(myLatLng) {
 
-var contentString = 'Testing';
-      
- var infowindow = new google.maps.InfoWindow({
+    var contentString = 'Testing';
+
+    var infowindow = new google.maps.InfoWindow({
       content: contentString
-  });
+    });
     var marker = new google.maps.Marker({
-        position: myLatLng,
-        map: map,
-        draggable:true,
-        animation: google.maps.Animation.DROP,
-        title: "'Uluru (Ayers Rock)'"
+      position: myLatLng,
+      map: map,
+      draggable:true,
+      animation: google.maps.Animation.DROP,
+      title: "'Uluru (Ayers Rock)'"
     });
     google.maps.event.addListener(marker, 'click', function() {
-    infowindow.open(map,marker);
-  });
+      infowindow.open(map,marker);
+    });
 
-google.maps.event.addDomListener(window, 'load', initializeMapping);
+    google.maps.event.addDomListener(window, 'load', initializeMapping);
   }
 }
