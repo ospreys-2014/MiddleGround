@@ -191,7 +191,7 @@ YelpParser = {
   parsedBusiness: function(yelp_results, index) {
     return this.businesses["name" + index] = {
       name:   yelp_results[index].name, 
-      rating_url: yelp_results[index].rating_img_url,
+      rating_url: yelp_results[index].rating_img_url_large,
       url: yelp_results[index].url,  
       address: yelp_results[index].location.address[0],
       city: yelp_results[index].location.city,
@@ -216,9 +216,8 @@ View = {
 
   renderBusiness: function(business){
     console.log(business.name)
-    $('#poi').append('<li><h4>' + business.name + '</h4></li>' +
-                      '<img src ="'+business.rating_url+'">' +
-                      '<a href ="' + business.url + '">Link</a>' +
+    $('#poi').append('<h3><li><a href ="' + business.url + '">' + business.name + '</a></li></h3>' +
+                      '<img style="margin-top: -.75em;"src ="'+business.rating_url+'">' +
                       '<p>' + business.address + '</p>' +
                       '<p>' + business.city + ','+ business.state + '</p>' +
                       '<p>' + business.phone + '</p>' + '<br>'
