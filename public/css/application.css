@@ -11,19 +11,20 @@ fieldset strong { display: block; margin: 0.5em 0 0em; }
 fieldset input { width: 95%; }
 ul span { color: #999; }
 html, body { height: 100%; width: 100%;}
+h2{margin-left: -1.5em; margin-top: -.25em;}
 p {font-size: 20px;}
 .btn{height:2.3em; font-size: 21px;}
 #searchblock{margin-left: 16em;}
 #myselect{ margin-left: 2.6em;}
 #routebtn{margin-left: 25em; border-radius: 5px;}
-#map_container{float: left; margin-left: 7em;}
-#poi{float:left; margin-left: 13em;}
+#map_container{float: left; margin-left: 3em;}
+#poi{float:left; margin-left: 10em;}
 #map_canvas {
-  width: 589px;
-  height: 400px;
-  margin: 10px 20px 10px 0;
+  width: 800px;
+  height: 600px;
 }
 
+#poi{display:none;}
 #logo {
   display: inline;
   padding-right: 10px;

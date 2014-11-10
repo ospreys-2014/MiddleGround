@@ -13,7 +13,8 @@ $(document).ready(function() {
     Trip.request["destination"] = $form.find('input[name=coords2]').val();
     Trip.request["travelMode"] = Trip.travelOptions[$travelMode];
     Trip.calcRoute();
-
+    $('#poi').fadeIn();
+    
   })
 
 });
@@ -220,7 +221,7 @@ View = {
                       '<img style="margin-top: -.75em;"src ="'+business.rating_url+'">' +
                       '<p>' + business.address + '</p>' +
                       '<p>' + business.city + ','+ business.state + '</p>' +
-                      '<p>' + business.phone + '</p>' + '<br>'
+                      '<p>' + business.phone + '</p>'
       )
 
   },
