@@ -13,10 +13,16 @@ $(document).ready(function() {
     Trip.request["destination"] = $form.find('input[name=coords2]').val();
     Trip.request["travelMode"] = Trip.travelOptions[$travelMode];
     Trip.calcRoute();
-    $('#poi').fadeIn();
+    navigationFn.goToSection('#poi');
     
   })
-
+    var navigationFn = {
+        goToSection: function(id) {
+            $('html, body').animate({
+                scrollTop: $(id).offset().top
+            }, 10);
+        }
+    }
 });
 
 
@@ -242,7 +248,6 @@ View = {
 
 
   renderMarker: function(myLatLng) {
-
     var contentString = 'Testing';
 
     var infowindow = new google.maps.InfoWindow({
@@ -253,7 +258,7 @@ View = {
       map: map,
       draggable:true,
       animation: google.maps.Animation.DROP,
-      title: "'Uluru (Ayers Rock)'"
+      title: "Hello World"
     });
     google.maps.event.addListener(marker, 'click', function() {
       infowindow.open(map,marker);
