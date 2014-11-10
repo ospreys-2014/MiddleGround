@@ -216,13 +216,12 @@ View = {
 
   renderBusiness: function(business){
     console.log(business.name)
-    $('#poi').append('<p>' + business.name + '</p>' +
+    $('#poi').append('<li><h4>' + business.name + '</h4></li>' +
                       '<img src ="'+business.rating_url+'">' +
                       '<a href ="' + business.url + '">Link</a>' +
                       '<p>' + business.address + '</p>' +
-                      '<p>' + business.city + '</p>' +
-                      '<p>' + business.state + '</p>' +
-                      '<p>' + business.phone + '</p>'
+                      '<p>' + business.city + ','+ business.state + '</p>' +
+                      '<p>' + business.phone + '</p>' + '<br>'
       )
 
   },
