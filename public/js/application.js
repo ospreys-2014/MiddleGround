@@ -14,7 +14,7 @@ $(document).ready(function() {
     Trip.request["travelMode"] = Trip.travelOptions[$travelMode];
     Trip.calcRoute();
     navigationFn.goToSection('#poi');
-    
+
   })
     var navigationFn = {
         goToSection: function(id) {
@@ -99,7 +99,7 @@ Response = {
 
   showAllSteps: function(routeObject) {
     steps = routeObject.routes[0].legs[0].steps;
-    
+
     counter = 0;
     step_sum = 0;
     for(i = 0; i < steps.length; i++){
@@ -122,7 +122,7 @@ Response = {
       if(step_sum < midPointTime && next_step_sum > midPointTime){
         // console.log("The step that contains midpoint:");
         console.log(steps[i]);
-        return { 
+        return {
           step: steps[i],
           step_sum: step_sum
         }
@@ -148,12 +148,12 @@ Yelp = {
   main: function(coordinatesObject) {
     coordinates = {
       latitude: coordinatesObject.k,
-      longitude:coordinatesObject.B
+      longitude:coordinatesObject.D
     }
-    
+
     this.getYelpResults(coordinates);
   },
-  
+
   getYelpResults: function(coordinates) {
     $.ajax({
       url: '/results',
@@ -168,7 +168,7 @@ Yelp = {
     });
   }
 
-  
+
 }
 
 YelpParser = {
@@ -176,7 +176,7 @@ YelpParser = {
   main: function(json_response){
     console.log(this.parseBusinesses(json_response));
     yelp_results = this.parseBusinesses(json_response)
-    
+
 
     if(yelp_results.length === 0){
       View.displayNoBusiness();
@@ -201,16 +201,16 @@ YelpParser = {
 
   parsedBusiness: function(yelp_results, index) {
     return this.businesses["name" + index] = {
-      name:   yelp_results[index].name, 
+      name:   yelp_results[index].name,
       rating_url: yelp_results[index].rating_img_url_large,
-      url: yelp_results[index].url,  
+      url: yelp_results[index].url,
       address: yelp_results[index].location.address[0],
       city: yelp_results[index].location.city,
       state: yelp_results[index].location.state_code,
       phone: yelp_results[index].phone,
       latitude: yelp_results[index].location.coordinate.latitude,
-      longitude: yelp_results[index].location.coordinate.longitude      
-    } 
+      longitude: yelp_results[index].location.coordinate.longitude
+    }
 
   }
 }
@@ -220,7 +220,7 @@ View = {
   populateField: function(inputField, populateField) {
     $("input[name=" + inputField + "]").geocomplete().bind("geocode:result", function(event, result){
       coordsObject = result.geometry.location;
-      $("input[name=" + populateField + "]").val(coordsObject.k + ", " + coordsObject.B);
+      $("input[name=" + populateField + "]").val(coordsObject.k + ", " + coordsObject.D);
       console.log(result.geometry.location);
     });
   },
