@@ -148,7 +148,7 @@ Yelp = {
   main: function(coordinatesObject) {
     coordinates = {
       latitude: coordinatesObject.k,
-      longitude:coordinatesObject.B
+      longitude:coordinatesObject.D
     }
 
     this.getYelpResults(coordinates);
