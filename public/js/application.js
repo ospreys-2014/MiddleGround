@@ -223,8 +223,7 @@ View = {
   populateField: function(inputField, populateField) {
     $("input[name=" + inputField + "]").geocomplete().bind("geocode:result", function(event, result){
       coordsObject = result.geometry.location;
-      $("input[name=" + populateField + "]").val(coordsObject.k + ", " + coordsObject.D);
-      console.log(result.geometry.location);
+      $("input[name=" + populateField + "]").val(coordsObject.lat() + ", " + coordsObject.lng());
     });
   },
 
