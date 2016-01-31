@@ -79,13 +79,21 @@ Response = {
     stepObject = this.findPhysicalMidStep(responseFromGoogle, midPointTime);
 
     googleMidPointObject = this.findPhysicalMidPoint(stepObject, midPointTime);
+    var coordinates = {};
+    // To support Yelp coordinate input.
+    coordinates.latitude = googleMidPointObject.lat();
+    coordinates.longitude = googleMidPointObject.lng();
+
+    // To support Google marker coordinate input.
+    coordinates.lat = googleMidPointObject.lat();
+    coordinates.lng = googleMidPointObject.lng();
 
     // THIS RETURNS THE PHYSICAL MID POINT BY DRIVING TIME
-    console.log(googleMidPointObject);
+    console.log(coordinates);
 
-    View.renderMarker(googleMidPointObject);
+    View.renderMarker(coordinates);
 
-    Yelp.main(googleMidPointObject);
+    Yelp.main(coordinates);
 
   },
 
@@ -146,12 +154,7 @@ Response = {
 
 Yelp = {
   main: function(coordinatesObject) {
-    coordinates = {
-      latitude: coordinatesObject.k,
-      longitude:coordinatesObject.D
-    }
-
-    this.getYelpResults(coordinates);
+    this.getYelpResults(coordinatesObject);
   },
 
   getYelpResults: function(coordinates) {
@@ -220,8 +223,7 @@ View = {
   populateField: function(inputField, populateField) {
     $("input[name=" + inputField + "]").geocomplete().bind("geocode:result", function(event, result){
       coordsObject = result.geometry.location;
-      $("input[name=" + populateField + "]").val(coordsObject.k + ", " + coordsObject.D);
-      console.log(result.geometry.location);
+      $("input[name=" + populateField + "]").val(coordsObject.lat() + ", " + coordsObject.lng());
     });
   },
 
