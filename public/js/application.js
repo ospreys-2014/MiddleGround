@@ -154,12 +154,7 @@ Response = {
 
 Yelp = {
   main: function(coordinatesObject) {
-    coordinates = {
-      latitude: coordinatesObject.k,
-      longitude:coordinatesObject.D
-    }
-
-    this.getYelpResults(coordinates);
+    this.getYelpResults(coordinatesObject);
   },
 
   getYelpResults: function(coordinates) {
