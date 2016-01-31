@@ -13,6 +13,7 @@ gem 'activerecord', '~>4.1'
 gem 'bcrypt-ruby'
 gem 'yelp'
 gem 'rake'
+gem 'dotenv'
 
 gem 'shotgun'
 
